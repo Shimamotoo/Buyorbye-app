@@ -1,5 +1,7 @@
+import type { contasInfo } from "@/types/contaType";
 import { Delius_400Regular, useFonts } from "@expo-google-fonts/delius";
 import { Ionicons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Picker } from "@react-native-picker/picker";
 import { useRouter } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
@@ -10,14 +12,33 @@ const avatar = require("../../assets/images/bizibizi-cat.gif");
 
 export default function Index() {
   const router = useRouter();
-  const [user, setUser] = useState<string>("Inhas");
+  const [user, setUser] = useState<string>("inhas");
   const [fontsLoaded, error] = useFonts({
     Delius_400Regular,
   });
 
-  function handleSubmit() {
-    router.push("/main");
-    console.log(user);
+  async function handleSubmit() {
+    const contas: Record<string, contasInfo> = {
+      inhas: {
+        nome: "Gabriella",
+        salario: 5000,
+        avatar: "Avatar_Guaxinim.png",
+      },
+      inhus: {
+        nome: "Bruno",
+        salario: 3500,
+        avatar: "Avatar_Gato.png",
+      },
+    };
+
+    const dadosParaSalvar = contas[user];
+    if (dadosParaSalvar) {
+      await AsyncStorage.setItem(
+        "@usuario_logado",
+        JSON.stringify(dadosParaSalvar),
+      );
+      router.push("/main");
+    }
   }
 
   useEffect(() => {
