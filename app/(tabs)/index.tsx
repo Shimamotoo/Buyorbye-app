@@ -1,11 +1,14 @@
 import type { contasInfo } from "@/types/contaType";
-import { Delius_400Regular, useFonts } from "@expo-google-fonts/delius";
+import {
+  Montserrat_400Regular,
+  Montserrat_700Bold,
+} from "@expo-google-fonts/montserrat";
+import { useFonts } from "@expo-google-fonts/montserrat/useFonts";
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Picker } from "@react-native-picker/picker";
 import { useRouter } from "expo-router";
-import * as SplashScreen from "expo-splash-screen";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
 const avatar = require("../../assets/images/bizibizi-cat.gif");
@@ -13,19 +16,16 @@ const avatar = require("../../assets/images/bizibizi-cat.gif");
 export default function Index() {
   const router = useRouter();
   const [user, setUser] = useState<string>("inhas");
-  const [fontsLoaded, error] = useFonts({
-    Delius_400Regular,
-  });
 
   async function handleSubmit() {
     const contas: Record<string, contasInfo> = {
       inhas: {
-        nome: "Gabriella",
+        nome: "Inhas",
         salario: 5000,
         avatar: "Avatar_Guaxinim.png",
       },
       inhus: {
-        nome: "Bruno",
+        nome: "Inhus",
         salario: 3500,
         avatar: "Avatar_Gato.png",
       },
@@ -41,15 +41,12 @@ export default function Index() {
     }
   }
 
-  useEffect(() => {
-    if (fontsLoaded || error) {
-      SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded, error]);
+  const [fontsLoaded] = useFonts({
+    Montserrat_400Regular,
+    Montserrat_700Bold,
+  });
 
-  if (!fontsLoaded && !error) {
-    return null;
-  }
+  if (!fontsLoaded) return null;
 
   return (
     <View style={style.container}>
@@ -112,7 +109,7 @@ const style = StyleSheet.create({
   },
   text: {
     color: "white",
-    fontFamily: "Delius_400Regular",
+    fontFamily: "Montserrat_400Regular",
     fontSize: 18,
   },
   pickerContainer: {
@@ -149,7 +146,7 @@ const style = StyleSheet.create({
   },
   textButton: {
     color: "white",
-    fontFamily: "Delius_400Regular",
+    fontFamily: "Montserrat_400Regular",
     fontSize: 18,
   },
 });
