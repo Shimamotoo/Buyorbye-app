@@ -5,21 +5,21 @@ export default function TabsLayout() {
   return (
     <Tabs
       screenOptions={{
-        headerStyle: { backgroundColor: "#232329" },
+        headerStyle: { backgroundColor: "#7d57c9" },
         headerShadowVisible: false,
         headerTintColor: "white",
-        tabBarStyle: { backgroundColor: "#232329" },
+        tabBarStyle: { backgroundColor: "#3b226b" },
         tabBarActiveTintColor: "white",
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
-          title: "Home",
-          headerTitle: "BuyOrBye",
+          title: "Login",
+          headerShown: false,
           tabBarIcon: ({ focused }) => (
             <Ionicons
-              name={focused ? "home-sharp" : "home-outline"}
+              name={focused ? "log-in-sharp" : "log-in-outline"}
               size={20}
               color={"white"}
             />
